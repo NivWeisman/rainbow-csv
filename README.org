@@ -1,5 +1,5 @@
 #+TITLE: Rainbow CSV README
-#+AUTHOR: Your Name
+#+AUTHOR: Niv Weisman
 #+OPTIONS: toc:nil
 
 * Overview
