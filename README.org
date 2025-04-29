@@ -1,0 +1,88 @@
+#+TITLE: Rainbow CSV README
+#+AUTHOR: Your Name
+#+OPTIONS: toc:nil
+
+* Overview
+
+Rainbow CSV is an Emacs package that provides dynamic foreground highlighting of CSV columns. Inspired by the Rainbow CSV extension in VS Code, this package highlights each CSV field using a cycling set of colors. It includes a robust parser that handles quoted fields and escaped quotes, and it offers a customizable option to switch between the original colors and a 30% lighter set.
+
+* Features
+
+- Highlights each CSV column with a different foreground color.
+- Robust CSV field parsing that supports:
+  - Quoted fields.
+  - Escaped quotes.
+- Customizable color sets with an option to use 30% lighter versions.
+- Integrates seamlessly with Emacs's JIT-lock system for efficient highlighting.
+- Automatic activation in `csv-mode` via a hook.
+
+* Installation
+
+Place the `rainbow-csv.el` file somewhere in your Emacs load path if you are not using a package manager. For example, if you have a directory called `~/.emacs.d/lisp/`, copy the file there and add the following to your Emacs init file:
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(require 'rainbow-csv)
+#+END_SRC
+
+* Using use-package with built-in package loading
+
+If you are using `use-package` and have manually installed the file or it is available in your package archive, you can integrate Rainbow CSV as follows:
+
+#+BEGIN_SRC emacs-lisp
+(use-package rainbow-csv
+  :load-path "~/.emacs.d/lisp/"  ;; adjust the path if needed
+  :hook (csv-mode . rainbow-csv-enable)
+  :config
+  ;; Optional: Customize the color settings
+  (setq rainbow-csv-use-lighter-colors t)
+  (setq rainbow-csv-original-colors '("#FF0000" "#008800" "#0000FF" "#DD7700" "#990099" "#009999"))
+  (setq rainbow-csv-lighter-colors '("#FF4D4D" "#4DAC4D" "#4D4DFF" "#E7A04D" "#B84DB8" "#4DB8B8"))
+  ;; Ensure faces are generated with the current settings.
+  (rainbow-csv--generate-faces))
+#+END_SRC
+
+* Using Straight with GitHub
+
+If you prefer to use the Straight package manager to install Rainbow CSV directly from GitHub, you can use the following snippet. Replace `"username/rainbow-csv"` with the correct GitHub repository path:
+
+#+BEGIN_SRC emacs-lisp
+(use-package rainbow-csv
+  :straight (rainbow-csv :type git :host github :repo "NivWeisman/rainbow-csv")
+  :hook (csv-mode . rainbow-csv-enable)
+  :config
+  ;; Optional: Customize the color settings
+  (setq rainbow-csv-use-lighter-colors t)
+  (setq rainbow-csv-original-colors '("#FF0000" "#008800" "#0000FF" "#DD7700" "#990099" "#009999"))
+  (setq rainbow-csv-lighter-colors '("#FF4D4D" "#4DAC4D" "#4D4DFF" "#E7A04D" "#B84DB8" "#4DB8B8"))
+  ;; Ensure faces are generated with the current settings.
+  (rainbow-csv--generate-faces))
+#+END_SRC
+
+* Usage
+
+1. Open a CSV file (with a `.csv` extension) in Emacs.
+2. If `csv-mode` is enabled, Rainbow CSV will automatically activate via the hook and begin highlighting CSV columns.
+3. To manually toggle highlighting, you can run the following commands:
+   - Enable highlighting: `M-x rainbow-csv-enable`
+   - Disable highlighting: `M-x rainbow-csv-disable`
+
+* Customization
+
+You can tweak the color lists and the toggle for lighter colors by adjusting the following variables:
+
+- `rainbow-csv-use-lighter-colors`: Set to `t` (default) to use the lighter set, or `nil` to use the original colors.
+- `rainbow-csv-original-colors`: Define your preferred original color set.
+- `rainbow-csv-lighter-colors`: Define the 30% lighter versions of your colors.
+
+* License
+
+This package is distributed under the MIT License. See the LICENSE file for details.
+
+* Contributing
+
+Feel free to fork the repository, submit pull requests, or report issues on the project's repository.
+
+* Contact
+
+For questions or suggestions, please contact Your Name at your.email@example.com.
